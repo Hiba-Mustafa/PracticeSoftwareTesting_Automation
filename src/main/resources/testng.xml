@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Automation_Suite">
+
+    <test name="RunTestCases">
+        <classes>
+<!--            <class name="pages.RegistrationTest"/>-->
+<!--            <class name="pages.TestLoginPage"/>-->
+<!--            <class name="pages.TestAddToCart"/>-->
+            <class name="pages.TestCheckOut"/>
+        </classes>
+    </test>
+
+</suite>

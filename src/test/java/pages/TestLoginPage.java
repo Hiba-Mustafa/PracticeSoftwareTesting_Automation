@@ -1,6 +1,7 @@
 package pages;
 
 import Base.BaseTest;
+import CustomListeners.TestNGListeners;
 import io.PaySky.pages.utiles.Waits;
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
@@ -12,9 +13,9 @@ import org.testng.annotations.Test;
 public class TestLoginPage extends BaseTest {
     private final By title = By.cssSelector("h1[data-test='page-title']");
 
-    @Test(priority = 1)
+    @Test(priority = 1, retryAnalyzer = TestNGListeners.class)
+    @Story("User accesses the login page")
     @Description("verify that user can access login Page")
-    @Tag("Validation")
     @Severity(SeverityLevel.CRITICAL)
     public void testAccessToLoginPage() {
         Allure.getLifecycle().updateTestCase(testResult ->
@@ -30,7 +31,10 @@ public class TestLoginPage extends BaseTest {
     }
 
 
-    @Test(priority = 2)
+    @Test(priority = 2 , retryAnalyzer = TestNGListeners.class)
+    @Story("User logs in with valid credentials")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify a registered user can log in successfully with valid email and password")
     public void testLoginWithRegisteredCredentials() {
         Allure.getLifecycle().updateTestCase(testResult ->
         {
@@ -43,7 +47,10 @@ public class TestLoginPage extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, retryAnalyzer = TestNGListeners.class)
+    @Story("User logs out")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verify a logged-in user can log out and is redirected to the login page")
     public void testLogOut() {
         Allure.getLifecycle().updateTestCase(testResult ->
         {
@@ -54,6 +61,12 @@ public class TestLoginPage extends BaseTest {
         String currentUrl = "https://practicesoftwaretesting.com/auth/login";
         softAssert.assertTrue(logOutPage.isLoggedOut(currentUrl), "User logged out successfully");
         softAssert.assertAll();
+
+        }
+
+    @Step("Confirm redirect to login URL")
+    public void loginStep() {
+        System.out.println(driver.getCurrentUrl());
     }
 
     @Test(priority = 4)

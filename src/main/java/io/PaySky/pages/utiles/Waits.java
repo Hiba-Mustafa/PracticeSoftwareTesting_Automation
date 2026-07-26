@@ -21,7 +21,7 @@ public class Waits {
     public static WebElement waitForVisibility(WebDriver driver, By locator)
     {
         return new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+                . until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public static WebElement waitForClickable(WebDriver driver, By locator)

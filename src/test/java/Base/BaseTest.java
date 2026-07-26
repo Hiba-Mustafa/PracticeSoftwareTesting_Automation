@@ -2,6 +2,7 @@ package Base;
 
 import io.PaySky.pages.*;
 
+import io.PaySky.pages.utiles.ScreenShotUtils;
 import io.PaySky.pages.utiles.Waits;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;

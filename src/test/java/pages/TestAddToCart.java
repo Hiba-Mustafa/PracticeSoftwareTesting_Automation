@@ -1,13 +1,16 @@
 package pages;
 
 import Base.BaseTest;
+import CustomListeners.TestNGListeners;
 import io.PaySky.pages.utiles.Waits;
-import io.qameta.allure.Allure;
+import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
+@Epic("E-commerce Flow")
+@Feature("Shopping Cart")
 public class TestAddToCart extends BaseTest {
     private final By notification = By.cssSelector("#toast-container .toast-success");
     private final By productTitle = By.cssSelector("h1[data-test='product-name']");
@@ -17,7 +20,10 @@ public class TestAddToCart extends BaseTest {
     private final String cartURL = "https://practicesoftwaretesting.com/checkout";
 
 
-    @Test(priority = 1)
+    @Test(priority = 1, retryAnalyzer = TestNGListeners.class)
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("User adds a product to the cart")
+    @Description("Verify a product can be added to the cart and the confirmation toast/cart page appear correctly")
     public void testAddProductToCart() {
         Allure.getLifecycle().updateTestCase(testResult -> {
             testResult.setName("Product added to cart");
@@ -47,7 +53,10 @@ public class TestAddToCart extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2, retryAnalyzer = TestNGListeners.class)
+    @Story("User removes a product from the cart")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verify a product can be removed from the cart and the deletion toast appears")
     public void testRemoveProductFromCart() {
         Allure.getLifecycle().updateTestCase(testResult -> {
             testResult.setName("Remove product from cart");

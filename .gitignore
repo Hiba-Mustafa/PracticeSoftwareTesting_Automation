@@ -39,3 +39,7 @@ build/
 
 allure-report/
 allure-results/
+
+
+test-output/
+reports-single/

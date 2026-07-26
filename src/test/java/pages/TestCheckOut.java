@@ -1,8 +1,10 @@
 package pages;
 
 import Base.BaseTest;
+import CustomListeners.TestNGListeners;
 import io.PaySky.pages.utiles.JsonReader;
 import io.PaySky.pages.utiles.Waits;
+import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebElement;
@@ -10,8 +12,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
+@Epic("E-commerce Flow")
+@Feature("Checkout")
 public class TestCheckOut extends BaseTest {
+
     private final By isLoggedIn = By.cssSelector("p[class='ng-star-inserted']");
     private final By confirmPayment = By.cssSelector("div[data-test='payment-success-message']");
     private static final String PRODUCT_NAME = "Hammer";
@@ -28,9 +32,16 @@ public class TestCheckOut extends BaseTest {
     private final By houseNumberField = By.id("house_number");
     private final JsonReader testData = new JsonReader("users");
     private final By submitLogin = By.cssSelector("input[data-test='login-submit']");
+    private final By continueAsGuest = By.cssSelector("p[class='ng-star-inserted']");
 
-    @Test(priority = 1)
+    @Test(priority = 1 , retryAnalyzer = TestNGListeners.class)
+    @Story("Registered user completes checkout with cash on delivery")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify a new user can register, log in, add a product, and complete checkout paying cash on delivery")
     public void testRegisterPurchaseCashOnDelivery() {
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Valid E2E purchase");
+        });
         ensureLoggedOut();
         homePage.clickSignIn();
         register.clickOnRegistrationLink();
@@ -65,9 +76,15 @@ public class TestCheckOut extends BaseTest {
     }
 
 
-    @Test(priority = 2)
-    public void testPurchaseThenSignInDuringCheckoutWithValidCreditCard() {
-        ensureLoggedOut();
+    @Test(priority = 2, retryAnalyzer = TestNGListeners.class)
+    @Story("Guest checkout with valid credit card, logging in mid-checkout")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify a guest can add a product, check out as guest, log in during checkout, and pay successfully with a valid credit card")
+    public void testPurchaseAsGuestPayWithValidCreditCard() {
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Make a purchase as a guest user and pay with a valid credit card.");
+        });
+        logOutPage.logout();
         driver.get(HOME_URL);
         productPage.clickOnProductName(PRODUCT_NAME);
         productPage.addToCart();
@@ -75,17 +92,19 @@ public class TestCheckOut extends BaseTest {
         try {
             productPage.goToCart();
         } catch (ElementClickInterceptedException e) {
-            Waits.waitForElementToDisappear(driver, notification);
             driver.get(cartURL);
         }
         cartPage.proceedToCheckout();
         checkOutPage.payAsGuest();
+        WebElement guest = Waits.waitForVisibility(driver,continueAsGuest);
         String expectedMessage = "Continuing as guest:";
-        Assert.assertTrue(checkOutPage.getLoggedInMessage().contains(expectedMessage));
+        Assert.assertTrue(guest.getText().contains(expectedMessage),"Pay as guest user");
         checkOutPage.ProceedPaymentAsGuest();
         Waits.waitForVisibility(driver,billingAdd);
         try {
             checkOutPage.fillAddress();
+            checkOutPage.waitForAutoFilledFields();
+            checkOutPage.proceedToPayment();
         }
         catch (ElementClickInterceptedException e)
         {
@@ -93,8 +112,8 @@ public class TestCheckOut extends BaseTest {
             driver.findElement(postalCodeField).sendKeys(testData.getJsonData("$.registration.postalCode"));
             driver.findElement(houseNumberField).sendKeys(testData.getJsonData("$.registration.houseNumber"));
             checkOutPage.waitForAutoFilledFields();
+            checkOutPage.proceedToPayment();
         }
-        checkOutPage.confirmAlreadyLoggedIn();
         checkOutPage.payWithValidCreditCard();
         String expectedMsg = "Payment was successful";
         WebElement actualMsg = Waits.waitForVisibility(driver,confirmPayment);
@@ -105,46 +124,6 @@ public class TestCheckOut extends BaseTest {
         softAssert.assertAll();
     }
 
-
-//    @Test(priority = 3)
-//    public void testLoginPurchaseInvalidPaymentMethod() {
-////        ensureLoggedOut();
-//        homePage.clickSignIn();
-//        loginPage.loginWithJsonUser(4, "email", "password");
-////        homePage.chooseFromCategory(handToolCat);
-//        homePage.goToHomePage();
-//        productPage.clickOnProductName(PRODUCT_NAME);
-//        productPage.addToCart();
-//        Waits.waitForElementToDisappear(driver, notification);
-//        try {
-//            productPage.goToCart();
-//        }
-//        catch (ElementClickInterceptedException e) {
-//            Waits.waitForElementToDisappear(driver, notification);
-//            driver.get(cartURL);
-//        }
-//        cartPage.proceedToCheckout();
-//
-//        if(checkOutPage.isCheckoutLoginDisplayed())
-//        {
-//            loginPage.loginWithJsonUser(4, "email", "password");
-//            WebElement login = Waits.waitForClickable(driver, submitLogin);
-//
-//            new WebDriverWait(driver, Duration.ofSeconds(5))
-//                    .until(d -> login.isEnabled() && login.isDisplayed());
-//
-//            login.click();
-//        }
-//
-//        checkOutPage.proceedCheckOutAfterLogin();
-//
-//        Waits.waitForVisibility(driver,houseNumberField).sendKeys(testData.getJsonData("$.registration.houseNumber"));
-//        checkOutPage.proceedToPayment();
-//        checkOutPage.payWithInvalidCreditCard();
-//
-//        softAssert.assertFalse(checkOutPage.isFinishButtonEnabled(),
-//                "Expected Finish button to stay disabled when the credit card data is invalid");
-//    }
 
 }
 

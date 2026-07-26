@@ -30,7 +30,6 @@ public class RegistrationTest extends BaseTest {
         String url = "https://practicesoftwaretesting.com/auth/login";
         softAssert.assertTrue(driver.getCurrentUrl().equals(url));
         softAssert.assertAll();
-        softAssert.assertAll();
     }
 
     @Test (priority = 2)

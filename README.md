@@ -15,6 +15,11 @@ A Selenium WebDriver test automation framework built in Java, testing the full s
 <img width="1365" height="597" alt="image" src="https://github.com/user-attachments/assets/d74b6509-270b-4d33-becf-6062d072c7e9" />
 
 
+
+https://github.com/user-attachments/assets/40c3155d-5cce-4b9e-8c35-7869d6c3d61d
+
+
+
 ## ✨ Key Features
 
 - **Page Object Model (POM)** — clean separation between page logic and test logic

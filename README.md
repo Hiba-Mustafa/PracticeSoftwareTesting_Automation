@@ -78,4 +78,4 @@ allure serve target/allure-results
 
 ---
 
-📫 Built by [Your Name](https://github.com/your-profile) — feel free to connect!
+📫 Built by [Heba Mostafa]([https://github.com/your-profile](https://www.linkedin.com/in/heba-mostafa-2512000/)) — feel free to connect!

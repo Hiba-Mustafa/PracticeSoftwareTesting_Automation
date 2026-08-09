@@ -12,6 +12,7 @@ A Selenium WebDriver test automation framework built in Java, testing the full s
 
 ## 📸 Test Report
 
+<img width="1365" height="597" alt="image" src="https://github.com/user-attachments/assets/d74b6509-270b-4d33-becf-6062d072c7e9" />
 
 
 ## ✨ Key Features

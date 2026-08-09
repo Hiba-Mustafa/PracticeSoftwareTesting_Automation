@@ -37,7 +37,7 @@ A Selenium WebDriver test automation framework built in Java, testing the full s
 ```
 src/
 ├── main/java/io.PaySky.pages/     → Page Objects (CartPage, LoginPage, ProductPage, RegistrationPage, CheckOutPage, LogoutPage)
-│   └── utiles/                    → Waits, JsonReader, RandomData, AllureUtils, ScreensShotUtils
+│   └── utiles/                    → Waits, JsonReader, RandomData, AllureUtils, ScreenShotUtils
 ├── test/java/
 │   ├── Base/BaseTest.java         → Driver setup & teardown
 │   ├── pages/                     → Test classes

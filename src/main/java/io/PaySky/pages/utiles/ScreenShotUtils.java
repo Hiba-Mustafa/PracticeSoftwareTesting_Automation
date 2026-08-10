@@ -1,6 +1,5 @@
 package io.PaySky.pages.utiles;
 
-import io.qameta.allure.Attachment;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -13,7 +12,7 @@ public class ScreenShotUtils {
     public static void takeScreenShotForElement(WebDriver driver, String name) {
         try {
             File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            File dest = new File("src/main/resources/" + name + ".png");
+            File dest = new File("test-output/screenshots/" + name + ".png");
             FileUtils.copyFile(src, dest);
             AllureUtils.attachScreenshotstoAllure(name, dest.getPath());
         } catch (IOException e) {
@@ -21,9 +20,6 @@ public class ScreenShotUtils {
         }
 
     }
-    @Attachment(value = "{name}", type = "image/png")
-    public static byte[] takeScreenShot(WebDriver driver, String name) {
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-    }
+
 
 }

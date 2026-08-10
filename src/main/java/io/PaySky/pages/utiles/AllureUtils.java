@@ -18,7 +18,6 @@ public class AllureUtils {
 
     public static void attachScreenshotstoAllure(String screenName, String screenPath) {
         try {
-            File screenshotFile = new File(screenPath);
             Allure.addAttachment(screenName, newInputStream(Path.of(screenPath)));
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

@@ -14,7 +14,7 @@ public class TestNGListeners implements ITestListener, IRetryAnalyzer, IInvokedM
 
     public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
         if (method.isTestMethod()) {
-            ScreenShotUtils.takeScreenShot(Base.BaseTest.driver, testResult.getName());
+            ScreenShotUtils.takeScreenShotForElement(Base.BaseTest.driver, testResult.getName());
             System.out.println(method.getTestMethod().getMethodName() + " finished");
         }
 

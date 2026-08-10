@@ -1,6 +1,6 @@
 # Automation_PaySky 🧪
 
-A Selenium WebDriver test automation framework built in Java, testing the full shopping flow — registration, login, add to cart, and checkout — on [practicesoftwaretesting.com](https://practicesoftwaretesting.com).
+A Selenium WebDriver test automation framework built in Java, testing the full shopping flow: registration, login, add to cart, and checkout on [practicesoftwaretesting.com](https://practicesoftwaretesting.com).
 
 ![Java](https://img.shields.io/badge/Java-25-orange?logo=openjdk)
 ![Selenium](https://img.shields.io/badge/Selenium-4.45.0-43B02A?logo=selenium)
